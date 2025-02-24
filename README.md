@@ -197,3 +197,22 @@ Note that the `C` value should be determined via a hyperparameter sweep using a 
 
 * [OpenCLIP](https://github.com/mlfoundations/open_clip): includes larger and independently trained CLIP models up to ViT-G/14
 * [Hugging Face implementation of CLIP](https://huggingface.co/docs/transformers/model_doc/clip): for easier integration with the HF ecosystem
+
+
+# challenges
+ 1) Optimized for quick searches, than solve:
+ ```sh
+ import faiss
+
+# Indexing with FAISS for fast nearest neighbor search
+index = faiss.IndexFlatL2(d)  # d is the dimensionality of the embeddings
+index.add(features)  # Add features to the index
+D, I = index.search(query, k)  # Search for k nearest neighbors
+ ```
+
+ 2) Balance between accuracy and memory usage
+    CLIP can be memory intensive due to the large amount of data and features extracted. This can be a problem when using the model to process large data sets or in 
+    resource-constrained environments, than solve: 
+
+    Use mixed precision training to reduce memory usage.
+    Adjust the model so that only the essential features are loaded into memory.
